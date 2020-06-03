@@ -37,7 +37,7 @@ function setup() {
   rectMode(CENTER); //draw rectangle from the center of the rectangle
   textSize(charW);
 
-  numCols = 100;
+  numCols = 120;
   numRows = totalChars / numCols;
   resizeCanvas(numCols * charW, (numRows + 1) * charH);
   colorGrid();
