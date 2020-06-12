@@ -314,6 +314,7 @@ class Ribosome {
     this.triplet = [];
     this.currentFrame = "";
     this.currentProtein = "";
+    this.currentPeptideChain = [];
   }
 
   setStartStop() {
@@ -344,34 +345,14 @@ class Ribosome {
   }
 
   //make a peptide chain given  position of M (methionine) and corresponding STOP
-  function makePepChain(m, s) { //methionine triplet position, stop triplet position
-    this.init = m;
-    this.stop = s;
+  makePepChain(aa) { //methionine triplet position, stop triplet position
+    this.currentPeptideChain = [];
+    let reading = false;
+    if (aa === 'M' && reading === false) {
+      reading = true;
+    }
 
-    this.peptide.push
   }
-
-  // findFrames(index) {
-  //   let ndx = index;
-  //   let startCodon;
-  //   let stopCodon;
-  //   if (startFrame(ndx)) {
-  //     totalFrames++;
-  //     startCodon = ndx;
-  //     // print("start frame at " + startCodon);
-  //     for (let i = ndx; i < totalChars; i++) {
-  //       if (stopFrame(i)) {
-  //         stopCodon = i;
-  //         print("start frame at: " + startCodon + " -- stop frame at: " + stopCodon);
-  //         print(covid.substring(startCodon, stopCodon + 2));
-  //         print(totalFrames); //number of complete frames/lines/nucleotides ?
-  //         break; //came what we are looking for, get out and move on . . .
-  //       }
-  //     }
-  //   }
-  //   // print(this.seq[index] + this.seq[index + 1] + this.seq[index + 2]);
-  //   this.start += 3; //and skip to the next 3 elements
-  // }
 
   frameGrabber(m) {
     if (this.triplet.length < 3) {
@@ -390,20 +371,20 @@ class Ribosome {
 
   update() {
     if (!this.complete) {
-      this.printIndex();
+      // this.printIndex();
       let frame = this.frameGrabber(this.seq[this.start]);
-      if (frame.length === 3) {
-
+      if (frame.length === 3) { //frame must be complete
         this.currentProtein = makeAA(frame).brev;
         print(this.currentProtein);
-        if (this.currentProtein === 'M') {
-          let head = this.currentProtein;
-          let proteinPostion = this.start;
-        }
-        if(this.currentProtein === "STOP"){
-          let tail = this.currentProtein;
-          let tailPosition = this.start+ 2;
-        }
+        this.makePepChain(this.currentProtein);
+        // if (this.currentProtein === 'M') {
+        //   let head = this.currentProtein;
+        //   let proteinPostion = this.start;
+        // }
+        // if (this.currentProtein === "STOP") {
+        //   let tail = this.currentProtein;
+        //   let tailPosition = this.start + 2;
+        // }
       }
       this.advance(); //move to next element . . .
     }

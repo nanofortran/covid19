@@ -30,7 +30,7 @@ function setup() {
 
   totalChars = sequence.length;
 
-  rib1 = new Ribosome(sequence, true, 0);
+
 
   console.log("The sequence has " + totalChars + " elements.");
 
@@ -39,6 +39,7 @@ function setup() {
   textSize(20);
   text("Check the console for output.", width / 2, height / 2);
 
+  rib1 = new Ribosome(sequence, true, 0);
 
 }
 
