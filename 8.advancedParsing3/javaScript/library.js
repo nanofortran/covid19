@@ -613,6 +613,7 @@ class Fader {
     if(this.fadeCount > this.fadeNum){
       this.fading = false;
       console.log("in the stop: " + (millis() - this.startMillis));
+
     }
 
     // this.value = map(this.runTime(), 0, this.fadeTime, this.startValue, this.destValue);
@@ -638,6 +639,5 @@ class Fader {
     }
     return millis() - this.startMillis;
   }
-
 
 } ///////////////////////
