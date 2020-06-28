@@ -316,11 +316,11 @@ The Ribosome() contructor takes 3 arguments, the seqence to process (seq), the d
 to begin reading from (dir), and the frame offset (off) to begin the transcription.
 */
 class Ribosome {
-  constructor(seq, dir, off, int) {
+  constructor(seq, dir, off) {
     this.seq = seq; //an array of genes in sequence (teh covid)
     this.dir = dir; //reading forward is TRUE, reading backwards is FALSE
     this.off = off; //offset to begin seeking frames (0, 1, 2)
-    this.interval = int;
+    // this.interval = int;
     // if dir === true, shifts right, if dir === false, shifts left
 
     this.start; //the starting nucleotide to begin transcription
@@ -342,8 +342,8 @@ class Ribosome {
   setStartStop() {
     if (this.dir) { //read from top of this.seq adjusting for this.off
       this.start = 0 + this.off;
-      // this.end = this.seq.length;
-      this.end = 3000; //for debugging
+      this.end = this.seq.length;
+      // this.end = 3000; //for debugging
     } else { //read from tail of this.seq qdjusting for this.off
       this.start = this.seq.length - this.off;
       this.end = 0;
@@ -456,11 +456,57 @@ class Ribosome {
           // print(this.start + ":" + chain);
         }
       }
-      // this.advance(); //move to next nucleotide . . .
+      this.advance(); //move to next nucleotide . . .
     }
   }
 } ////////close of class Ribosome///////////////////////////////////////////////
 
+class Text {
+  constructor() {
+    this.text = '';
+    this.xPos = width / 2;
+    this.yPos = height / 2;
+    this.size = 20;
+    this.fill = 255;
+    this.opa = 255;
+    this.liner = new Line();
+  }
+
+  setText(t) {
+    this.text = t;
+  }
+
+  setSize(s) {
+    this.size = s;
+  }
+
+  setPos(x, y) {
+    this.xPos = x;
+    this.yPos = y;
+  }
+
+  setFades() {
+    for (let i = 0; i < arguments.length; i++) {
+      this.liner.lineArray.push(arguments[i]);
+    }
+  }
+
+  display() {
+    this.opa = 255 * this.liner.update();
+    textSize(this.size);
+    fill(this.fill, this.opa);
+    text(this.text, this.xPos, this.yPos);
+  }
+
+  trigger(){
+    this.liner.trigger();
+  }
+
+  running(){
+    return this.liner.running;
+  }
+
+}
 
 class Textual {
   constructor(i) {
@@ -610,7 +656,7 @@ class Fader {
       console.log("at the fade: " + (millis() - this.startMillis));
       this.startMillis = millis();
     }
-    if(this.fadeCount > this.fadeNum){
+    if (this.fadeCount > this.fadeNum) {
       this.fading = false;
       console.log("in the stop: " + (millis() - this.startMillis));
 

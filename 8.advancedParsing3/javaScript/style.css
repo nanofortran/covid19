@@ -1,10 +1,13 @@
-body{
+body {
   width: 100%;
 }
 
 canvas {
-    padding: 0;
-    margin: auto;
-    display: block;
-    width: 800px;
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 800px;
+  font-family: 'DatalegreyaDot';
+  font-weight: normal;
+  font-style: normal;
 }
